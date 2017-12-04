@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing People</h1>
+
+<table class="table table-striped">
+  <thead class="">
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Relationship</th>
+      <th>Gift Completed?</th>
+      <th># of Gifts</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @people.each do |person| %>
+      <tr class="">
+        <td><%= person.FirstName %></td>
+        <td><%= person.LastName %></td>
+        <td><%= person.Relationship.name%></td>
+        <td><%= person.GiftCompleted ? "Yes" : "No" %></td>
+        <td><%= person.gifts.count %></td>
+        <td><%= link_to '', person, class: 'glyphicon glyphicon-eye-open' %></td>
+        <td><%= link_to '', edit_person_path(person), class: 'glyphicon glyphicon-pencil' %></td>
+        <td><%= link_to '', person, method: :delete, data: { confirm: 'Are you sure?' }, class: 'glyphicon glyphicon-trash' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Person', new_person_path %>

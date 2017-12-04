@@ -1,0 +1,60 @@
+<div class="container-fluid">
+<%= form_for(@gift, html: {class: "form-horizontal"}) do |f| %>
+  <% if @gift.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@gift.errors.count, "error") %> prohibited this gift from being saved:</h2>
+
+      <ul>
+      <% @gift.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <div class="form-group">
+      <%= f.label :Summary, class: "control-label col-sm-2"%>
+      <div class="col-sm-5">
+       <%= f.text_field :Summary, class: "form-control" %>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <%= f.label :Description, class: "control-label col-sm-2" %>
+      <div class="col-sm-5">
+       <%= f.text_area :Description, class: "form-control" %>
+      </div>
+    </div>
+
+
+ 
+    <div class="form-group">
+      <%= f.label :cost, class:"control-label col-sm-2" %>
+      <div class="col-sm-5">
+        <%= f.number_field :cost, class: "form-control" %>
+      </div>
+    </div>
+
+
+    <div  class="form-group">
+      <%= f.label :purchased, class: "control-label col-sm-2"%>
+      <div class="col-sm-5">
+        <%= f.check_box :purchased, class:"checkbox" %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label "For", class: "control-label col-sm-2" %>
+      <div class="col-sm-5">
+        <%= f.collection_select :Person_id, Person.order(:Firstname), :id, :FirstName, {:include_blank => "Select a Person"},{:class => "form-control"} %>
+      </div>
+    </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-5">
+      <%= f.submit class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>
+</div>

@@ -1,0 +1,49 @@
+<div class="container-fluid">
+<%= form_for(@person, html: {class: "form-horizontal"}) do |f| %>
+  <% if @person.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@person.errors.count, "error") %> prohibited this person from being saved:</h2>
+
+      <ul>
+      <% @person.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label "First Name", class:"control-label col-sm-2" %>
+    <div class="col-sm-5">
+      <%= f.text_field :FirstName, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label "Last Name", class:"control-label col-sm-2" %>
+    <div class="col-sm-5">
+     <%= f.text_field :LastName, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label "Gift Completed", class:"control-label col-sm-2" %>
+    <div class="col-sm-5">
+      <%= f.check_box :GiftCompleted, class:"checkbox" %>
+    </div>
+ </div>
+
+ <div class="form-group">
+  <%= f.label "Relationship", class:"control-label col-sm-2"%>
+  <div class="col-sm-5">
+        <%= f.collection_select :Relationship_id, Relationship.order(:name), :id, :name, {:include_blank => "Select a relationship"},{:class => "form-control"} %>
+  </div>
+ </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-5">
+      <%= f.submit class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>
+</div>

@@ -1,0 +1,13 @@
+<p id="notice"><%= notice %></p>
+
+    <h2><%= @person.full_name %> <small><%= @person.Relationship.name%></small></h4>
+
+    <p >
+      Gift Completed: <%= @person.GiftCompleted ? "Yes" : "No" %>
+    </p>
+
+    <%= link_to 'Edit', edit_person_path(@person), class: "card-link" %> |
+    <%= link_to 'Back', people_path, class:"card-link" %>
+  </div>
+
+
