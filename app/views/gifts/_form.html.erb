@@ -44,13 +44,21 @@
       </div>
     </div>
 
+    <% @readonly = true%>
     <% if @person.nil?%>
-    <% @person = Person.new%>
+    <% @person = Person.new %>
+    <% @readonly = false%>
+      <% if @gift.Person.nil? %>
+       <% @person.id = 0%>
+      <%else%>
+        <% @person.id = @gift.Person.id%>
+      <%end%>
     <%end%>
+
     <div class="form-group">
       <%= f.label "For", class: "control-label col-sm-2" %>
       <div class="col-sm-5">
-        <%= f.collection_select :Person_id, Person.order(:Firstname), :id, :FirstName, {:include_blank => "Select a Person", :selected => (@person.id || 0)},{:class => "form-control", disabled: (!@person.id.nil?)} %>
+        <%= f.collection_select :Person_id, Person.order(:Firstname), :id, :FirstName, {:include_blank => "Select a Person", :selected => @person.id},{:class => "form-control", :readonly => @readonly} %>
       </div>
     </div>
 

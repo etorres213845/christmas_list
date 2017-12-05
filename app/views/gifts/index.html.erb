@@ -21,7 +21,7 @@
         <td><%= gift.cost %></td>
         <td><%= gift.Person.full_name %></td>
         <td><%= link_to '', gift, class: 'glyphicon glyphicon-eye-open' %></td>
-        <td><%= link_to '', edit_gift_path(gift), class: 'glyphicon glyphicon-pencil'%></td>
+        <td><%= link_to '', edit_gift_path(gift), {data: {toggle:"modal", target:"#edit-gift-modal"}, class: 'glyphicon glyphicon-pencil'}%></td>
         <td><%= link_to '', gift, method: :delete, data: { confirm: 'Are you sure?' }, class: 'glyphicon glyphicon-trash' %></td>
       </tr>
     <% end %>
@@ -34,3 +34,4 @@
 
 
 <%= render 'addGiftModal'%>
+<%= render 'editGiftModal'%>

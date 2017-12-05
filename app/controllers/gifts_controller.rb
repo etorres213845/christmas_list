@@ -19,6 +19,7 @@ class GiftsController < ApplicationController
 
   # GET /gifts/1/edit
   def edit
+    render layout: false
   end
 
   # POST /gifts
@@ -69,6 +70,6 @@ class GiftsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def gift_params
-      params.require(:gift).permit(:Summary, :Description, :cost, :Person_id)
+      params.require(:gift).permit(:Summary, :Description, :cost, :Person_id, :Purchased)
     end
 end
