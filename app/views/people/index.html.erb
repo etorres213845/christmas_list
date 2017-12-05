@@ -2,11 +2,10 @@
 
 <h1>Listing People</h1>
 
-<table class="table table-striped">
+<table class="table table-hover">
   <thead class="">
     <tr>
-      <th>First Name</th>
-      <th>Last Name</th>
+      <th>Name</th>
       <th>Relationship</th>
       <th>Gift Completed?</th>
       <th># of Gifts</th>
@@ -17,13 +16,12 @@
   <tbody>
     <% @people.each do |person| %>
       <tr class="">
-        <td><%= person.FirstName %></td>
-        <td><%= person.LastName %></td>
+        <td><%= person.full_name %></td>
         <td><%= person.Relationship.name%></td>
         <td><%= person.GiftCompleted ? "Yes" : "No" %></td>
         <td><%= person.gifts.count %></td>
         <td><%= link_to '', person, class: 'glyphicon glyphicon-eye-open' %></td>
-        <td><%= link_to '', edit_person_path(person), class: 'glyphicon glyphicon-pencil' %></td>
+        <td><%= link_to '', edit_person_path(person), {data: {toggle: "modal", target: "#editPersonModal",}, class: 'glyphicon glyphicon-pencil'} %></td>
         <td><%= link_to '', person, method: :delete, data: { confirm: 'Are you sure?' }, class: 'glyphicon glyphicon-trash' %></td>
       </tr>
     <% end %>
@@ -32,4 +30,25 @@
 
 <br>
 
-<%= link_to 'New Person', new_person_path %>
+<%= link_to 'New Person', '', {data: {toggle: "modal", target: "#newPersonModal"}, :class => "btn btn-primary"} %>
+
+<div id="newPersonModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Add Person</h3>
+      </div>
+      <div class="modal-body">
+        <% @person = Person.new %>
+        <%= render 'form'%>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="editPersonModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    </div>
+  </div>
+</div>

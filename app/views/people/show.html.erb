@@ -1,13 +1,47 @@
 <p id="notice"><%= notice %></p>
+<h2><%= @person.full_name %> <small><%= @person.Relationship.name%></small></h4>
 
-    <h2><%= @person.full_name %> <small><%= @person.Relationship.name%></small></h4>
+<p >
+  Gift Completed: <%= @person.GiftCompleted ? "Yes" : "No" %>
+</p>
 
-    <p >
-      Gift Completed: <%= @person.GiftCompleted ? "Yes" : "No" %>
-    </p>
+<h3 class="page-header">Gifts</h3>
 
-    <%= link_to 'Edit', edit_person_path(@person), class: "card-link" %> |
-    <%= link_to 'Back', people_path, class:"card-link" %>
-  </div>
+
+  
+    <% if @person.gifts.count > 0 %>
+      <table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Summary</th>
+      <th>Description</th>
+      <th>Cost</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+      <tbody>
+      <% @person.gifts.each do |gift| %>
+        <tr>
+          <td><%= gift.Summary %></td>
+          <td><%= gift.Description %></td>
+          <td><%= gift.cost %></td>
+          <td><%= link_to '', gift, class: 'glyphicon glyphicon-eye-open' %></td>
+          <td><%= link_to '', edit_gift_path(gift), class: 'glyphicon glyphicon-pencil'%></td>
+          <td><%= link_to '', gift, method: :delete, data: { confirm: 'Are you sure?' }, class: 'glyphicon glyphicon-trash' %></td>
+        </tr>
+      <% end %>
+      </tbody>
+      </table>
+    <%else%>
+      <h2 class="text-center">No gifts found!</h2>
+    <%end%>
+  
+
+
+<%= link_to 'Add Gift', '', {data: {toggle: "modal", target: "#add-gift-modal"}, class: "btn btn-primary"}%>
+
+<%= render 'gifts/addGiftModal'%>
+
+<%= link_to 'Back', people_path, class:"btn btn-default" %>
 
 

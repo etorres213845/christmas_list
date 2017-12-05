@@ -20,11 +20,19 @@
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
-    padding-top: 65px;
+    padding-top: 75px;
     
 }
 
 a{
     text-decoration:none;
+}
+
+.modal{
+    position:absolute;
+    top: 20%;
+    bottom: 12.5%;
+    right:12.5%;
+    left: 15%;
 }
 

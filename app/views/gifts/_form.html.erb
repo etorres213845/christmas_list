@@ -44,16 +44,20 @@
       </div>
     </div>
 
+    <% if @person.nil?%>
+    <% @person = Person.new%>
+    <%end%>
     <div class="form-group">
       <%= f.label "For", class: "control-label col-sm-2" %>
       <div class="col-sm-5">
-        <%= f.collection_select :Person_id, Person.order(:Firstname), :id, :FirstName, {:include_blank => "Select a Person"},{:class => "form-control"} %>
+        <%= f.collection_select :Person_id, Person.order(:Firstname), :id, :FirstName, {:include_blank => "Select a Person", :selected => (@person.id || 0)},{:class => "form-control", disabled: (!@person.id.nil?)} %>
       </div>
     </div>
 
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-5">
       <%= f.submit class: "btn btn-primary" %>
+      <%= link_to "Cancel", '', {data:{dismiss: "modal"}, class:"btn btn-default"}%>
     </div>
   </div>
 <% end %>

@@ -3,7 +3,7 @@ class PeopleController < ApplicationController
   # GET /people
   # GET /people.json
   def index
-    @people = Person.where(:GiftCompleted => false)
+    @people = Person.all
   end
 
   # GET /people/1
@@ -18,6 +18,11 @@ class PeopleController < ApplicationController
 
   # GET /people/1/edit
   def edit
+    @person = Person.find(params[:id])
+    respond_to do |format|
+      format.html {render layout:false}
+      format.json {render}
+    end
   end
 
   # POST /people
@@ -27,7 +32,7 @@ class PeopleController < ApplicationController
 
     respond_to do |format|
       if @person.save
-        format.html { redirect_to @person, notice: 'Person was successfully created.' }
+        format.html { redirect_to people_path, notice: 'Person was successfully created.' }
         format.json { render :show, status: :created, location: @person }
       else
         format.html { render :new }

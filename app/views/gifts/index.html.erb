@@ -30,4 +30,7 @@
 
 <br>
 
-<%= link_to 'New Gift', new_gift_path %>
+<%= link_to 'New Gift', '', {data: {toggle:"modal", target:"#add-gift-modal"}, class: "btn btn-primary"} %>
+
+
+<%= render 'addGiftModal'%>
