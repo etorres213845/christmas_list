@@ -30,9 +30,53 @@ a{
 
 .modal{
     position:absolute;
-    top: 20%;
-    bottom: 12.5%;
     right:12.5%;
     left: 15%;
 }
 
+@media screen and (min-width: 768px){
+    .modal:before{
+        display: inline-block;
+        vertical-align: middle;
+        height: 100%;
+    }
+}
+
+.modal-dialog{
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+}
+
+#add-gift-modal, #edit-gift-modal, #edit-person-modal{
+    min-height: 300%;
+}
+
+#person-header > h2{
+    display:inline-block;
+}
+
+
+tbody {
+    display:block;
+    height:300px;
+    overflow:auto;
+}
+
+thead, tbody tr{
+    display:table;
+    width:100%;
+    table-layout:fixed;
+}
+
+thead{
+    width: calc(100% - 1em)
+}
+
+.navbar{
+    min-height: 65px;
+}
+
+.navbar-toggle{
+    margin-top:15px;
+}

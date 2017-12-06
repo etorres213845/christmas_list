@@ -3,7 +3,7 @@ class PeopleController < ApplicationController
   # GET /people
   # GET /people.json
   def index
-    @people = Person.all
+    @people = Person.all.order(:GiftCompleted, :LastName)
   end
 
   # GET /people/1
@@ -25,7 +25,7 @@ class PeopleController < ApplicationController
     end
   end
 
-  # POST /people
+  # POST /peoplel
   # POST /people.json
   def create
     @person = Person.new(person_params)
@@ -46,7 +46,7 @@ class PeopleController < ApplicationController
   def update
     respond_to do |format|
       if @person.update(person_params)
-        format.html { redirect_to @person, notice: 'Person was successfully updated.' }
+        format.html { redirect_to people_path, notice: 'Person was successfully updated.' }
         format.json { render :show, status: :ok, location: @person }
       else
         format.html { render :edit }

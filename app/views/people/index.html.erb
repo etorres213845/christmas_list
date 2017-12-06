@@ -1,38 +1,45 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing People</h1>
-
-<table class="table table-hover">
-  <thead class="">
-    <tr>
-      <th>Name</th>
-      <th>Relationship</th>
-      <th>Gift Completed?</th>
-      <th># of Gifts</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @people.each do |person| %>
-      <tr class="">
-        <td><%= person.full_name %></td>
-        <td><%= person.Relationship.name%></td>
-        <td><%= person.GiftCompleted ? "Yes" : "No" %></td>
-        <td><%= person.gifts.count %></td>
-        <td><%= link_to '', person, class: 'glyphicon glyphicon-eye-open' %></td>
-        <td><%= link_to '', edit_person_path(person), {data: {toggle: "modal", target: "#editPersonModal",}, class: 'glyphicon glyphicon-pencil'} %></td>
-        <td><%= link_to '', person, method: :delete, data: { confirm: 'Are you sure?' }, class: 'glyphicon glyphicon-trash' %></td>
+<h1 class="glyphicon glyphicon-gift"> Giftees</h1> 
+<%= link_to 'New Person', '', {data: {toggle: "modal", target: "#new-person-modal"}, :class => "btn btn-primary pull-right"} %>
+<div stlye="overflow:auto; width:100%; height:100%;">
+  <table class="table table-hover">
+    <thead class="">
+      <tr>
+        <th>Name</th>
+        <th>Relation</th>
+        <th>Done?</th>
+        <th>Gifts</th>
+        <th>Purchased</th>
+        <th>Cost</th>
+        <th colspan="2" width="10%"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
+    <tbody>
+      <% @grand_total = 0%>
+      <% @people.each do |person| %>
+        <tr class="">
+          <td><%= person.FirstName %></td>
+          <td><%= person.Relationship.name%></td>
+          <td><%= person.GiftCompleted ? "Yes" : "No" %></td>
+          <td><%= person.gifts.count %></td>
+          <td><%= person.gifts.where(purchased:true).count%>
+          <td><% @total_cost = person.gifts.reduce(0) {|sum, gift| sum + gift.cost}%>
+          <% @grand_total += @total_cost%>
+          <%= "$#{@total_cost}"%></td>
+          <td width="5%"><%= link_to '', person, class: 'glyphicon glyphicon-eye-open' %></td>
+          <td width="5%"><%= link_to '', person, method: :delete, data: { confirm: 'Are you sure?' }, class: 'glyphicon glyphicon-trash' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<h3>Total: <%= "$#{@grand_total}"%></h3>
 <br>
 
-<%= link_to 'New Person', '', {data: {toggle: "modal", target: "#newPersonModal"}, :class => "btn btn-primary"} %>
-
-<div id="newPersonModal" class="modal fade">
+<div id="new-person-modal" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -42,13 +49,6 @@
         <% @person = Person.new %>
         <%= render 'form'%>
       </div>
-    </div>
-  </div>
-</div>
-
-<div id="editPersonModal" class="modal fade">
-  <div class="modal-dialog">
-    <div class="modal-content">
     </div>
   </div>
 </div>

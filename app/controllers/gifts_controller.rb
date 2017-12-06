@@ -5,11 +5,13 @@ class GiftsController < ApplicationController
   # GET /gifts.json
   def index
     @gifts = Gift.all
+    @gifts.order!(:Summary)
   end
 
   # GET /gifts/1
   # GET /gifts/1.json
   def show
+    redirect_to @gift.Person
   end
 
   # GET /gifts/new
@@ -29,7 +31,7 @@ class GiftsController < ApplicationController
 
     respond_to do |format|
       if @gift.save
-        format.html { redirect_to @gift, notice: 'Gift was successfully created.' }
+        format.html { redirect_to @gift.Person, notice: 'Gift was successfully created.' }
         format.json { render :show, status: :created, location: @gift }
       else
         format.html { render :new }
@@ -43,7 +45,7 @@ class GiftsController < ApplicationController
   def update
     respond_to do |format|
       if @gift.update(gift_params)
-        format.html { redirect_to @gift, notice: 'Gift was successfully updated.' }
+        format.html { redirect_to @gift.Person, notice: 'Gift was successfully updated.' }
         format.json { render :show, status: :ok, location: @gift }
       else
         format.html { render :edit }
@@ -70,6 +72,6 @@ class GiftsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def gift_params
-      params.require(:gift).permit(:Summary, :Description, :cost, :Person_id, :Purchased)
+      params.require(:gift).permit(:Summary, :Description, :cost, :Person_id, :purchased)
     end
 end
