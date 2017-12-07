@@ -15,14 +15,16 @@
     </thead>
 
     <tbody>
-      <% @grand_total = 0%>
+      <% @grand_total, @total_gifts_to_buy, @total_gifts_bought = 0, 0, 0%>
       <% @people.each do |person| %>
         <tr class="">
           <td><%= person.FirstName %></td>
           <td><%= person.Relationship.name%></td>
           <td><%= person.GiftCompleted ? "Yes" : "No" %></td>
           <td><%= person.gifts.count %></td>
+          <% @total_gifts_to_buy += person.gifts.count%>
           <td><%= person.gifts.where(purchased:true).count%>
+          <% @total_gifts_bought += person.gifts.where(purchased:true).count%>
           <td><% @total_cost = person.gifts.reduce(0) {|sum, gift| sum + gift.cost}%>
           <% @grand_total += @total_cost%>
           <%= "$#{@total_cost}"%></td>
@@ -34,8 +36,17 @@
   </table>
 </div>
 
-<h3>Total: <%= "$#{@grand_total}"%></h3>
-<br>
+<div class="row">
+  <div class="col-sm-3">
+    <h4 class="text-center">Total: <%= "$#{@grand_total}"%></h4>
+  </div>
+  <div class="col-sm-4">
+    <h4 class="text-center">Gifts Purchased: <%="#{@total_gifts_bought}/#{@total_gifts_to_buy}"%></h4>
+  </div>
+  <div class="col-sm-4">
+    <h4 class="text-center">Gifts Completed: <%="#{@people.where(GiftCompleted:true).count}/#{@people.count}"%>
+  </div>
+</div>
 
 <div id="new-person-modal" class="modal fade">
   <div class="modal-dialog">

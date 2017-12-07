@@ -17,7 +17,7 @@
       <tr>
         <td width="25%"><%= gift.Summary %></td>
         <td width="25%"><%= gift.Description %></td>
-        <td width="10%"><%= gift.cost %></td>
+        <td width="10%"><%= "$#{gift.cost}" %></td>
         <td width="25%"><%= gift.Person.full_name %></td>
         <td width="5%"><%= link_to '', gift, class: 'glyphicon glyphicon-eye-open' %></td>
         <td width="5%"><%= link_to '', gift, method: :delete, data: { confirm: 'Are you sure?' }, class: 'glyphicon glyphicon-trash' %></td>
