@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
+  
+  authenticate :user do
+    resources :lists
+    resources :gifts
+    resources :people, path: "giftees"
+  end
+  
   devise_for :users,:controllers => {registrations: 'users/registrations'}
-  resources :gifts
-  resources :people, path: "giftees"
+
 
   root 'home#index'
 

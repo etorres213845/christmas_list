@@ -11,7 +11,11 @@ class GiftsController < ApplicationController
   # GET /gifts/1
   # GET /gifts/1.json
   def show
-    redirect_to @gift.Person
+    if @gift.Person.user_id == current_user.id
+      redirect_to @gift.Person
+    else
+      redirect_to 'home#index'
+    end
   end
 
   # GET /gifts/new
