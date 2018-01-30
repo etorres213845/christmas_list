@@ -1,9 +1,11 @@
 class PeopleController < ApplicationController
   before_action :set_person, only: [:show, :edit, :update, :destroy]
+  before_action :set_list, only: [:index]
   # GET /people
   # GET /people.json
   def index
     @people = Person.all.order(:GiftCompleted, :FirstName)
+    @people = @list.people.order(:GiftCompleted, :FirstName)
   end
 
   # GET /people/1
@@ -69,6 +71,12 @@ class PeopleController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_person
       @person = Person.find(params[:id])
+    end
+
+    def set_list
+      if @list.nil?
+        @list = current_user.lists.first
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
